@@ -36,8 +36,8 @@ import { FeesPage } from './modules/admin/FeesPage';
 import { ZonesPage } from './modules/admin/ZonesPage';
 
 const router = createBrowserRouter([
-  { path: '/login', element: <LoginPage /> },
-  { path: '/signup', element: <SignupPage /> },
+  { path: '/login', element: <VendorDashboard /> },
+  { path: '/signup', element: <AdminDashboard /> },
   { path: '/verify-email', element: <VerifyEmailPage /> },
   { path: '/forgot-password', element: <ForgotPasswordPage /> },
   { path: '/reset-password', element: <ResetPasswordPage /> },
