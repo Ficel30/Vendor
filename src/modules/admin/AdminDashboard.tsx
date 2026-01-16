@@ -46,7 +46,7 @@ export function AdminDashboard(): React.ReactElement {
   if (loading) {
     return (
       <div>
-        <h1 style={{ marginBottom: 24 }}>Admin Dashboard</h1>
+        <h1 className="mb-6">Admin Dashboard</h1>
         <Spinner />
       </div>
     );
@@ -54,13 +54,13 @@ export function AdminDashboard(): React.ReactElement {
 
   return (
     <div>
-      <div style={{ marginBottom: 8 }}>
-        <h1 style={{ marginBottom: 4 }}>Dashboard</h1>
-        <p style={{ color: 'var(--muted)', fontSize: '14px' }}>Welcome to ODG Delivery Admin Panel</p>
+      <div className="mb-2">
+        <h1 className="mb-1">Dashboard</h1>
+        <p className="text-muted text-sm">Welcome to ODG Delivery Admin Panel</p>
       </div>
       
       {/* Stats Grid */}
-      <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 20, marginBottom: 24 }}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
         <StatCard 
           icon="👥" 
           value={stats?.totalUsers ?? 0} 
@@ -76,7 +76,7 @@ export function AdminDashboard(): React.ReactElement {
           icon="📊" 
           value={stats?.todayOrders ?? 0} 
           label="Today's Orders"
-          variant="info"
+          variant="success"
         />
         <StatCard 
           icon="🔍" 
@@ -87,29 +87,20 @@ export function AdminDashboard(): React.ReactElement {
       </div>
 
       {/* Quick Actions */}
-      <div style={{ marginBottom: 24 }}>
-        <h2 style={{ marginBottom: 16 }}>Quick Actions</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16 }}>
-          <Card style={{ position: 'relative' }}>
-            <div style={{ display: 'flex', alignItems: 'start', gap: '16px' }}>
-              <div style={{ 
-                width: '56px', 
-                height: '56px', 
-                borderRadius: '14px',
-                background: 'linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '28px'
-              }}>
+      <div className="mb-6">
+        <h2 className="mb-4">Quick Actions</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <Card className="relative">
+            <div className="flex items-start gap-4">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-400 to-cyan-500 flex items-center justify-center text-2xl">
                 👥
               </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ marginBottom: 8, fontSize: '18px' }}>User Management</h3>
-                <p style={{ color: 'var(--muted)', marginBottom: 16, fontSize: '14px' }}>
+              <div className="flex-1">
+                <h3 className="mb-2 text-lg">User Management</h3>
+                <p className="text-muted mb-4 text-sm">
                   Manage users, roles, and permissions across the platform
                 </p>
-                <Link to="/admin/users" className="btn primary" style={{ display: 'inline-flex' }}>
+                <Link to="/admin/users" className="btn primary inline-flex">
                   Manage Users →
                 </Link>
               </div>
@@ -117,25 +108,16 @@ export function AdminDashboard(): React.ReactElement {
           </Card>
           
           <Card>
-            <div style={{ display: 'flex', alignItems: 'start', gap: '16px' }}>
-              <div style={{ 
-                width: '56px', 
-                height: '56px', 
-                borderRadius: '14px',
-                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '28px'
-              }}>
+            <div className="flex items-start gap-4">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-2xl">
                 ✅
               </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ marginBottom: 8, fontSize: '18px' }}>Rider Verification</h3>
-                <p style={{ color: 'var(--muted)', marginBottom: 16, fontSize: '14px' }}>
+              <div className="flex-1">
+                <h3 className="mb-2 text-lg">Rider Verification</h3>
+                <p className="text-muted mb-4 text-sm">
                   Review and approve rider documents and applications
                 </p>
-                <Link to="/admin/riders" className="btn primary" style={{ display: 'inline-flex' }}>
+                <Link to="/admin/riders" className="btn primary inline-flex">
                   Verify Riders →
                 </Link>
               </div>
@@ -143,25 +125,16 @@ export function AdminDashboard(): React.ReactElement {
           </Card>
           
           <Card>
-            <div style={{ display: 'flex', alignItems: 'start', gap: '16px' }}>
-              <div style={{ 
-                width: '56px', 
-                height: '56px', 
-                borderRadius: '14px',
-                background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '28px'
-              }}>
+            <div className="flex items-start gap-4">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-2xl">
                 📦
               </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ marginBottom: 8, fontSize: '18px' }}>Order Management</h3>
-                <p style={{ color: 'var(--muted)', marginBottom: 16, fontSize: '14px' }}>
+              <div className="flex-1">
+                <h3 className="mb-2 text-lg">Order Management</h3>
+                <p className="text-muted mb-4 text-sm">
                   Monitor and manage all orders in real-time
                 </p>
-                <Link to="/admin/orders" className="btn primary" style={{ display: 'inline-flex' }}>
+                <Link to="/admin/orders" className="btn primary inline-flex">
                   View Orders →
                 </Link>
               </div>
@@ -169,25 +142,16 @@ export function AdminDashboard(): React.ReactElement {
           </Card>
           
           <Card>
-            <div style={{ display: 'flex', alignItems: 'start', gap: '16px' }}>
-              <div style={{ 
-                width: '56px', 
-                height: '56px', 
-                borderRadius: '14px',
-                background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '28px'
-              }}>
+            <div className="flex items-start gap-4">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-violet-500 to-violet-600 flex items-center justify-center text-2xl">
                 💬
               </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ marginBottom: 8, fontSize: '18px' }}>Support Inbox</h3>
-                <p style={{ color: 'var(--muted)', marginBottom: 16, fontSize: '14px' }}>
+              <div className="flex-1">
+                <h3 className="mb-2 text-lg">Support Inbox</h3>
+                <p className="text-muted mb-4 text-sm">
                   View and respond to customer support messages
                 </p>
-                <Link to="/admin/support" className="btn primary" style={{ display: 'inline-flex' }}>
+                <Link to="/admin/support" className="btn primary inline-flex">
                   View Support →
                 </Link>
               </div>
@@ -195,25 +159,16 @@ export function AdminDashboard(): React.ReactElement {
           </Card>
           
           <Card>
-            <div style={{ display: 'flex', alignItems: 'start', gap: '16px' }}>
-              <div style={{ 
-                width: '56px', 
-                height: '56px', 
-                borderRadius: '14px',
-                background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '28px'
-              }}>
+            <div className="flex items-start gap-4">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-2xl">
                 📊
               </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ marginBottom: 8, fontSize: '18px' }}>Reports</h3>
-                <p style={{ color: 'var(--muted)', marginBottom: 16, fontSize: '14px' }}>
+              <div className="flex-1">
+                <h3 className="mb-2 text-lg">Reports</h3>
+                <p className="text-muted mb-4 text-sm">
                   View analytics, insights, and detailed reports
                 </p>
-                <Link to="/admin/reports" className="btn primary" style={{ display: 'inline-flex' }}>
+                <Link to="/admin/reports" className="btn primary inline-flex">
                   View Reports →
                 </Link>
               </div>
@@ -221,25 +176,16 @@ export function AdminDashboard(): React.ReactElement {
           </Card>
           
           <Card>
-            <div style={{ display: 'flex', alignItems: 'start', gap: '16px' }}>
-              <div style={{ 
-                width: '56px', 
-                height: '56px', 
-                borderRadius: '14px',
-                background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '28px'
-              }}>
+            <div className="flex items-start gap-4">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-2xl">
                 ⚙️
               </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ marginBottom: 8, fontSize: '18px' }}>Settings</h3>
-                <p style={{ color: 'var(--muted)', marginBottom: 16, fontSize: '14px' }}>
+              <div className="flex-1">
+                <h3 className="mb-2 text-lg">Settings</h3>
+                <p className="text-muted mb-4 text-sm">
                   Configure system settings and preferences
                 </p>
-                <Link to="/admin/settings" className="btn primary" style={{ display: 'inline-flex' }}>
+                <Link to="/admin/settings" className="btn primary inline-flex">
                   Edit Settings →
                 </Link>
               </div>

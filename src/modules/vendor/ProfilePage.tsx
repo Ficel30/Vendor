@@ -74,29 +74,33 @@ export function ProfilePage(): React.ReactElement {
 
   return (
     <div>
-      <div style={{ marginBottom: 20 }}>
-        <h2 style={{ marginBottom: 4 }}>Profile Settings</h2>
-        <p style={{ color: 'var(--muted)', fontSize: '14px' }}>Manage your restaurant profile and settings</p>
+      <div className="mb-5">
+        <h2 className="mb-1">Profile Settings</h2>
+        <p className="text-muted text-sm">Manage your restaurant profile and settings</p>
       </div>
       
       {loading && <Spinner />}
-      {error && <Card><div style={{ color: 'var(--danger)', padding: '12px' }}>{error}</div></Card>}
+      {error && (
+        <Card>
+          <div className="text-danger p-3">{error}</div>
+        </Card>
+      )}
       
       {!loading && !error && (
-        <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20 }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <Card>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
-              <div style={{ fontSize: 28 }}>🍽️</div>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="text-2xl">🍽️</div>
               <div>
-                <h3 style={{ margin: 0, fontSize: 18 }}>Restaurant Details</h3>
-                <p style={{ margin: 0, fontSize: 12, color: 'var(--muted)' }}>Basic information</p>
+                <h3 className="m-0 text-lg">Restaurant Details</h3>
+                <p className="m-0 text-xs text-muted">Basic information</p>
               </div>
             </div>
-            <form onSubmit={onSave} className="grid" style={{ gridTemplateColumns: '1fr', gap: 16 }}>
+            <form onSubmit={onSave} className="grid grid-cols-1 gap-4">
               <Input label="Restaurant name" placeholder="Your restaurant name" value={name} onChange={(e) => setName(e.target.value)} />
               <Input label="Description" placeholder="Short description" value={description} onChange={(e) => setDescription(e.target.value)} />
               <Input label="Image URL" placeholder="Profile image URL" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} />
-              <label className="row" style={{ gap: 8, alignItems: 'center' }}>
+              <label className="row gap-2 items-center">
                 <input type="checkbox" checked={isOpen} onChange={(e) => setIsOpen(e.target.checked)} />
                 Open for orders
               </label>
@@ -105,35 +109,35 @@ export function ProfilePage(): React.ReactElement {
           </Card>
           
           <Card>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
-              <div style={{ fontSize: 28 }}>🏦</div>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="text-2xl">🏦</div>
               <div>
-                <h3 style={{ margin: 0, fontSize: 18 }}>Bank Details</h3>
-                <p style={{ margin: 0, fontSize: 12, color: 'var(--muted)' }}>Payment information</p>
+                <h3 className="m-0 text-lg">Bank Details</h3>
+                <p className="m-0 text-xs text-muted">Payment information</p>
               </div>
             </div>
-            <div className="grid" style={{ gridTemplateColumns: '1fr', gap: 16 }}>
+            <div className="grid grid-cols-1 gap-4">
               <Input label="Bank name" placeholder="Your bank name" value={bankName} onChange={(e) => setBankName(e.target.value)} />
               <Input label="Account number" placeholder="Account number" value={accountNumber} onChange={(e) => setAccountNumber(e.target.value)} />
               <Button variant="primary" type="button" onClick={saveBank}>💰 Save Bank Details</Button>
             </div>
           </Card>
           
-          <Card style={{ gridColumn: '1 / -1' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
-              <div style={{ fontSize: 28 }}>🕐</div>
+          <Card className="lg:col-span-2">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="text-2xl">🕐</div>
               <div>
-                <h3 style={{ margin: 0, fontSize: 18 }}>Operating Hours</h3>
-                <p style={{ margin: 0, fontSize: 12, color: 'var(--muted)' }}>Set your opening times</p>
+                <h3 className="m-0 text-lg">Operating Hours</h3>
+                <p className="m-0 text-xs text-muted">Set your opening times</p>
               </div>
             </div>
-            <div className="card" style={{ background: 'var(--elev)' }}>
+            <div className="card bg-elev">
               {hours.map((h, i) => (
-                <div key={h.day_of_week} className="row" style={{ gap: 12, alignItems: 'center', marginBottom: 12 }}>
-                  <div style={{ width: 80, fontWeight: 600 }}>{['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][h.day_of_week]}</div>
-                  <input className="input" style={{ width: 90 }} value={h.open_time} onChange={(e) => setHours(prev => prev.map((x, j) => j === i ? { ...x, open_time: e.target.value } : x))} />
-                  <span style={{ color: 'var(--muted)' }}>to</span>
-                  <input className="input" style={{ width: 90 }} value={h.close_time} onChange={(e) => setHours(prev => prev.map((x, j) => j === i ? { ...x, close_time: e.target.value } : x))} />
+                <div key={h.day_of_week} className="row gap-3 items-center mb-3">
+                  <div className="w-20 font-semibold">{['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][h.day_of_week]}</div>
+                  <input className="input w-24" value={h.open_time} onChange={(e) => setHours(prev => prev.map((x, j) => j === i ? { ...x, open_time: e.target.value } : x))} />
+                  <span className="text-muted">to</span>
+                  <input className="input w-24" value={h.close_time} onChange={(e) => setHours(prev => prev.map((x, j) => j === i ? { ...x, close_time: e.target.value } : x))} />
                 </div>
               ))}
               <Button variant="primary" type="button" onClick={saveHours}>🕐 Save Hours</Button>

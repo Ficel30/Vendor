@@ -166,9 +166,9 @@ export function MenuPage(): React.ReactElement {
 
   return (
     <div>
-      <div className="row" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <h2 style={{ margin: 0 }}>Create / Edit Menu</h2>
-        <div className="row" style={{ gap: 8 }}>
+      <div className="row justify-between items-center">
+        <h2 className="m-0">Create / Edit Menu</h2>
+        <div className="row gap-2">
           <select className="btn" value={vendorId ?? ''} onChange={(e) => {
             const v = e.target.value ? Number(e.target.value) : null;
             setVendorId(v);
@@ -181,35 +181,43 @@ export function MenuPage(): React.ReactElement {
           </select>
         </div>
       </div>
-      {!vendorId && <Card><div style={{ color: 'var(--warning)' }}>Select a vendor to manage menu.</div></Card>}
+      {!vendorId && (
+        <Card>
+          <div className="text-warning">Select a vendor to manage menu.</div>
+        </Card>
+      )}
       {loading && <Spinner />}
-      {error && <Card><div style={{ color: 'var(--danger)' }}>{error}</div></Card>}
+      {error && (
+        <Card>
+          <div className="text-danger">{error}</div>
+        </Card>
+      )}
       {!loading && !error && (
         <>
-        <form ref={formRef} onSubmit={onSubmit} className="card" style={{ marginBottom: 12, display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <div className="grid" style={{ gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <form ref={formRef} onSubmit={onSubmit} className="card flex flex-col gap-4 mb-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label style={{ display: 'block', marginBottom: 4, fontWeight: 500, fontSize: '14px' }}>Item Name</label>
+              <label className="block mb-1 font-medium text-sm">Item Name</label>
               <Input placeholder="Enter item name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
             </div>
             <div>
-              <label style={{ display: 'block', marginBottom: 4, fontWeight: 500, fontSize: '14px' }}>Price</label>
+              <label className="block mb-1 font-medium text-sm">Price</label>
               <Input placeholder="Price (e.g. 1200.00)" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
             </div>
           </div>
           
           <div>
-            <label style={{ display: 'block', marginBottom: 4, fontWeight: 500, fontSize: '14px' }}>Description</label>
+            <label className="block mb-1 font-medium text-sm">Description</label>
             <Input placeholder="Enter item description" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
           </div>
           
           <div>
-            <label style={{ display: 'block', marginBottom: 4, fontWeight: 500, fontSize: '14px' }}>Image Upload</label>
-            <div className="row" style={{ gap: 8, alignItems: 'center' }}>
+            <label className="block mb-1 font-medium text-sm">Image Upload</label>
+            <div className="row gap-2 items-center">
               <input
                 type="file"
                 accept="image/*"
-                style={{ flex: 1 }}
+                className="flex-1"
                 onChange={async (e) => {
                   const file = e.target.files?.[0];
                   if (!file) return;
@@ -242,20 +250,20 @@ export function MenuPage(): React.ReactElement {
               <Button type="button" onClick={() => setForm({ ...form, image_url: '' })} disabled={!form.image_url}>Clear</Button>
             </div>
             {form.image_url && (
-              <div style={{ marginTop: 8 }}>
-                <img src={form.image_url} alt="preview" style={{ width: 120, height: 80, objectFit: 'cover', borderRadius: 8, border: '1px solid var(--border)' }} />
+              <div className="mt-2">
+                <img src={form.image_url} alt="preview" className="w-30 h-20 object-cover rounded-lg border border-border" />
               </div>
             )}
-            {uploadingImage && <span style={{ fontSize: 12, opacity: 0.8, marginTop: 4, display: 'block' }}>Uploading image…</span>}
+            {uploadingImage && <span className="text-xs opacity-80 mt-1 block">Uploading image…</span>}
           </div>
           
-          <div className="row" style={{ gap: 16, alignItems: 'center', justifyContent: 'space-between' }}>
-            <label className="row" style={{ gap: 8, alignItems: 'center' }}>
+          <div className="row gap-4 items-center justify-between">
+            <label className="row gap-2 items-center">
               <input type="checkbox" checked={form.is_available} onChange={(e) => setForm({ ...form, is_available: e.target.checked })} />
-              <span style={{ fontWeight: 500, fontSize: '14px' }}>Available for ordering</span>
+              <span className="font-medium text-sm">Available for ordering</span>
             </label>
             
-            <div className="row" style={{ gap: 8 }}>
+            <div className="row gap-2">
               <Button type="submit" variant="success">
                 {form.editingId ? 'Update' : 'Add'} Item
               </Button>
@@ -268,24 +276,27 @@ export function MenuPage(): React.ReactElement {
           </div>
         </form>
 
-        <div className="row" style={{ marginBottom: 8 }}>
+        <div className="row mb-2">
           <Input placeholder="Search menu" value={q} onChange={(e) => setQ(e.target.value)} />
         </div>
         
         <CategoryManager />
-        <div className="grid" style={{ gridTemplateColumns: '1fr 1fr 1fr', gap: 16 }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {items.map((it) => (
-            <Card key={it.id} style={{ display: `${`${it.name} ${it.description ?? ''}`.toLowerCase().includes(q.toLowerCase()) ? 'block' : 'none'}` }}>
-              {it.image_url && <img src={it.image_url} alt={it.name} style={{ width: '100%', height: 120, objectFit: 'cover', borderRadius: 8, marginBottom: 8 }} />}
-              <div style={{ fontWeight: 600 }}>{it.name}</div>
-              <div style={{ opacity: 0.8 }}>{it.description}</div>
-              <div style={{ marginTop: 8 }}>₦{(it.price_cents / 100).toFixed(2)}</div>
-              <div style={{ marginTop: 4, fontSize: 12 }}>{it.is_available ? 'Available' : 'Unavailable'}</div>
-              <div className="row" style={{ marginTop: 8, gap: 8 }}>
+            <Card 
+              key={it.id} 
+              className={`${`${it.name} ${it.description ?? ''}`.toLowerCase().includes(q.toLowerCase()) ? 'block' : 'hidden'}`}
+            >
+              {it.image_url && <img src={it.image_url} alt={it.name} className="w-full h-30 object-cover rounded-lg mb-2" />}
+              <div className="font-semibold">{it.name}</div>
+              <div className="opacity-80">{it.description}</div>
+              <div className="mt-2">₦{(it.price_cents / 100).toFixed(2)}</div>
+              <div className="mt-1 text-xs">{it.is_available ? 'Available' : 'Unavailable'}</div>
+              <div className="row gap-2 mt-2">
                 <Button type="button" onClick={() => onEdit(it)}>Edit</Button>
                 <Button type="button" className="danger" onClick={() => onDelete(it.id)}>Delete</Button>
               </div>
-              <div className="row" style={{ gap: 6, marginTop: 6 }}>
+              <div className="row gap-1.5 mt-1.5">
                 <select className="btn" value={(it as any).category_id ?? ''} onChange={async (e) => {
                   const category_id = e.target.value ? Number(e.target.value) : null;
                   try { await apiPost(`/vendors/${vendorId}/menu/${it.id}/category`, { category_id }); fetchMenu(); } catch (err: any) { push(err?.message ?? 'Failed to set category', 'error'); }
@@ -294,13 +305,13 @@ export function MenuPage(): React.ReactElement {
                   {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                 </select>
               </div>
-              <div style={{ marginTop: 8 }}>
-                <div style={{ fontWeight: 600, marginBottom: 4 }}>Modifier Groups</div>
-                <div className="row" style={{ gap: 6, flexWrap: 'wrap' }}>
+              <div className="mt-2">
+                <div className="font-semibold mb-1">Modifier Groups</div>
+                <div className="row gap-1.5 flex-wrap">
                   {(assignedByItem[it.id] ?? []).map(g => (
-                    <span key={g.id} className="btn" style={{ background: '#0f172a', borderRadius: 9999 }}>
+                    <span key={g.id} className="btn bg-slate-900 rounded-full">
                       {g.name}
-                      <button className="btn" style={{ marginLeft: 6 }} onClick={async () => {
+                      <button className="btn ml-1.5" onClick={async () => {
                         try {
                           await apiDelete(`/vendors/${vendorId}/menu/${it.id}/modifier-groups/${g.id}`);
                           loadAssignments(it.id);
@@ -309,7 +320,7 @@ export function MenuPage(): React.ReactElement {
                     </span>
                   ))}
                 </div>
-                <div className="row" style={{ gap: 6, marginTop: 6 }}>
+                <div className="row gap-1.5 mt-1.5">
                   <select className="btn" onFocus={() => loadAssignments(it.id)} onChange={async (e) => {
                     const groupId = Number(e.target.value);
                     if (!groupId) return;
@@ -334,5 +345,3 @@ export function MenuPage(): React.ReactElement {
     </div>
   );
 }
-
-

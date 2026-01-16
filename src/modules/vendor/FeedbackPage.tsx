@@ -31,18 +31,25 @@ export function FeedbackPage(): React.ReactElement {
     <div>
       <h3>Ratings & Reviews</h3>
       {loading && <Spinner />}
-      {error && <Card><div style={{ color: 'var(--danger)' }}>{error}</div></Card>}
+      {error && (
+        <Card>
+          <div className="text-danger">{error}</div>
+        </Card>
+      )}
       {!loading && !error && (
         <>
-          <div className="row" style={{ marginBottom: 8 }}>
+          <div className="row mb-2">
             <Input placeholder="Search comments or names" value={q} onChange={(e) => setQ(e.target.value)} />
           </div>
-          <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {items.map((r, idx) => (
-              <Card key={idx} style={{ display: `${`${r.name} ${r.comment ?? ''}`.toLowerCase().includes(q.toLowerCase()) ? 'block' : 'none'}` }}>
-                <div style={{ fontWeight: 600 }}>{'★'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}</div>
-                <div style={{ opacity: 0.8 }}>{r.comment ?? 'No comment'}</div>
-                <div style={{ marginTop: 8, fontSize: 12 }}>by {r.name}</div>
+              <Card 
+                key={idx} 
+                className={`${`${r.name} ${r.comment ?? ''}`.toLowerCase().includes(q.toLowerCase()) ? 'block' : 'hidden'}`}
+              >
+                <div className="font-semibold">{'★'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}</div>
+                <div className="opacity-80">{r.comment ?? 'No comment'}</div>
+                <div className="mt-2 text-xs">by {r.name}</div>
               </Card>
             ))}
           </div>
@@ -51,5 +58,3 @@ export function FeedbackPage(): React.ReactElement {
     </div>
   );
 }
-
-

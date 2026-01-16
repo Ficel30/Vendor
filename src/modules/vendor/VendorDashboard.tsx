@@ -24,72 +24,54 @@ export function VendorDashboard(): React.ReactElement {
 
   return (
     <div>
-      <div style={{ marginBottom: 8 }}>
-        <h1 style={{ marginBottom: 4 }}>Vendor Dashboard</h1>
-        <p style={{ color: 'var(--muted)', fontSize: '14px' }}>Manage your restaurant operations</p>
+      <div className="mb-2">
+        <h1 className="mb-1">Vendor Dashboard</h1>
+        <p className="text-muted text-sm">Manage your restaurant operations</p>
       </div>
 
       {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', padding: '40px' }}>
-          <div style={{ textAlign: 'center' }}>
-            <div className="spinner" style={{ margin: '0 auto 16px' }} />
-            <div style={{ color: 'var(--muted)' }}>Loading...</div>
+        <div className="flex justify-center p-10">
+          <div className="text-center">
+            <div className="spinner mx-auto mb-4" />
+            <div className="text-muted">Loading...</div>
           </div>
         </div>
       ) : (
-        <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 20 }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {/* Quick Stats */}
-          <Card style={{ position: 'relative' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+          <Card className="relative">
+            <div className="flex items-center justify-between mb-4">
               <div>
-                <div style={{ fontSize: '32px', fontWeight: 800, marginBottom: 4 }}>
+                <div className="text-3xl font-extrabold mb-1">
                   {stats?.today_orders ?? 0}
                 </div>
-                <div style={{ color: 'var(--muted)', fontSize: '14px' }}>Today's Orders</div>
+                <div className="text-muted text-sm">Today's Orders</div>
               </div>
-              <div style={{ 
-                width: '64px', 
-                height: '64px', 
-                borderRadius: '16px',
-                background: 'linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '32px'
-              }}>
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-cyan-500 flex items-center justify-center text-3xl">
                 📦
               </div>
             </div>
-            <div style={{ marginTop: 12, padding: '12px 0', borderTop: '1px solid var(--border)' }}>
-              <Link to="/vendor/orders" className="btn primary" style={{ display: 'flex', justifyContent: 'center' }}>
+            <div className="mt-3 pt-3 border-t border-border">
+              <Link to="/vendor/orders" className="btn primary flex justify-center">
                 View All Orders →
               </Link>
             </div>
           </Card>
 
-          <Card style={{ position: 'relative' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+          <Card className="relative">
+            <div className="flex items-center justify-between mb-4">
               <div>
-                <div style={{ fontSize: '32px', fontWeight: 800, marginBottom: 4 }}>
+                <div className="text-3xl font-extrabold mb-1">
                   ₦{stats?.today_cents ? (stats.today_cents / 100).toFixed(2) : '0.00'}
                 </div>
-                <div style={{ color: 'var(--muted)', fontSize: '14px' }}>Today's Revenue</div>
+                <div className="text-muted text-sm">Today's Revenue</div>
               </div>
-              <div style={{ 
-                width: '64px', 
-                height: '64px', 
-                borderRadius: '16px',
-                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '32px'
-              }}>
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-3xl">
                 💰
               </div>
             </div>
-            <div style={{ marginTop: 12, padding: '12px 0', borderTop: '1px solid var(--border)' }}>
-              <Link to="/vendor/reports" className="btn primary" style={{ display: 'flex', justifyContent: 'center' }}>
+            <div className="mt-3 pt-3 border-t border-border">
+              <Link to="/vendor/reports" className="btn primary flex justify-center">
                 View Reports →
               </Link>
             </div>
@@ -97,8 +79,8 @@ export function VendorDashboard(): React.ReactElement {
 
           {/* Quick Actions */}
           <Card>
-            <div style={{ fontWeight: 700, fontSize: '18px', marginBottom: 8 }}>Quick Actions</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div className="font-bold text-lg mb-2">Quick Actions</div>
+            <div className="flex flex-col gap-2">
               <Link to="/vendor/orders" className="btn">
                 📋 View Orders
               </Link>
@@ -112,14 +94,14 @@ export function VendorDashboard(): React.ReactElement {
           </Card>
 
           {/* Setup Guide */}
-          <Card style={{ background: 'linear-gradient(135deg, rgba(34, 211, 238, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%)', border: '2px dashed rgba(34, 211, 238, 0.3)' }}>
-            <div style={{ textAlign: 'center', padding: '8px' }}>
-              <div style={{ fontSize: '36px', marginBottom: '12px' }}>⚡</div>
-              <div style={{ fontWeight: 700, marginBottom: '8px', fontSize: '16px' }}>Get Started</div>
-              <div style={{ color: 'var(--muted)', fontSize: '13px', marginBottom: '16px' }}>
+          <Card className="bg-gradient-to-br from-cyan-400/10 to-cyan-500/5 border-2 border-dashed border-cyan-400/30">
+            <div className="text-center p-2">
+              <div className="text-4xl mb-3">⚡</div>
+              <div className="font-bold mb-2 text-base">Get Started</div>
+              <div className="text-muted text-xs mb-4">
                 Complete your profile and branding to start receiving orders
               </div>
-              <div style={{ display: 'flex', gap: 8, flexDirection: 'column' }}>
+              <div className="flex gap-2 flex-col">
                 <Link to="/vendor/profile" className="btn primary">
                   Complete Profile →
                 </Link>
